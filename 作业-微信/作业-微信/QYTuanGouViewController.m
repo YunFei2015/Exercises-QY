@@ -9,12 +9,15 @@
 #import "QYTuanGouViewController.h"
 #import "QYTuanGouModel.h"
 #import "QYTuanGouTableViewCell.h"
+#import "QYTGSearchResultTableViewController.h"
 #import "QYScrollView.h"
 #import "common.h"
 
 @interface QYTuanGouViewController () <UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *datas;
+@property (strong, nonatomic) NSMutableArray *titles;
+@property (strong, nonatomic) NSArray *results;
 
 @property (strong, nonatomic) UISearchController *searchController;
 
@@ -42,6 +45,29 @@
     
     _tableView.rowHeight = 100;
     
+    [self setScrollView];
+    [self setSearchController];
+}
+
+#pragma mark - 设置搜索框
+-(void)setSearchController{
+    QYTGSearchResultTableViewController *resultVC = [[QYTGSearchResultTableViewController alloc] init];
+    resultVC.datas = self.datas;
+    
+    _searchController = [[UISearchController alloc] initWithSearchResultsController:resultVC];
+    _searchController.hidesNavigationBarDuringPresentation = YES;
+    _searchController.dimsBackgroundDuringPresentation = YES;
+    _searchController.searchResultsUpdater = resultVC;
+}
+
+- (IBAction)searchBarBtnItemClick:(UIBarButtonItem *)sender {
+    [self presentViewController:_searchController animated:YES completion:^{
+        
+    }];
+}
+
+#pragma mark - 设置scrollView
+-(void)setScrollView{
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, QYScreenW, 200)];
     scrollView.contentSize = CGSizeMake((QYScreenW) * 3, scrollView.bounds.size.height);
     scrollView.pagingEnabled = YES;
@@ -49,15 +75,6 @@
     [self addSubViews:scrollView];
     
     _tableView.tableHeaderView = scrollView;
-    
-    
-    
-//    _searchController = [[UISearchController alloc] initWithSearchResultsController:self];
-//    _searchController.hidesNavigationBarDuringPresentation = YES;
-//    _searchController.dimsBackgroundDuringPresentation = YES;
-//    _searchController.searchResultsUpdater = self;
-    
-    
 }
 
 -(void)addSubViews:(UIScrollView *)scrollView{
@@ -74,7 +91,18 @@
     }
 }
 
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    NSArray *subViews = [scrollView subviews];
+    for (id view in subViews) {
+        if ([view isKindOfClass:[QYScrollView class]]) {
+            QYScrollView *qyScrollView = (QYScrollView *)view;
+            qyScrollView.zoomScale = 1.0;
+        }
+    }
+}
 
+
+#pragma mark - 设置组数、每组行数、单元格
 //设置组数
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -94,7 +122,7 @@
     
     QYTuanGouModel *model = self.datas[indexPath.row];
     cell.textLabel.text = model.title;
-    cell.detailTextLabel.text = model.price;
+    cell.detailLabel.text = model.price;
     cell.imageView.image = [UIImage imageNamed:model.icon];
     cell.buycountLabel.text = model.buycount;
     return cell;
@@ -118,20 +146,6 @@
 //    
 //    return scrollView;
 //}
-
-
-
-
-
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    NSArray *subViews = [scrollView subviews];
-    for (id view in subViews) {
-        if ([view isKindOfClass:[QYScrollView class]]) {
-            QYScrollView *qyScrollView = (QYScrollView *)view;
-            qyScrollView.zoomScale = 1.0;
-        }
-    }
-}
 
 #pragma mark - 导航控制器按钮点击响应事件
 - (IBAction)editBarItemClick:(UIBarButtonItem *)sender {
@@ -162,12 +176,12 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     //更改数据源
     [_datas removeObjectAtIndex:indexPath.row];
+    [self setSearchController];
     
     //更改界面
     NSArray *indexPaths = [NSArray arrayWithObjects:indexPath, nil];
     [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
     
-    [_tableView reloadData];
 }
 
 //实现移动
@@ -176,7 +190,6 @@
     QYTuanGouModel *sourceModel = _datas[sourceIndexPath.row];
     [_datas removeObjectAtIndex:sourceIndexPath.row];
     [_datas insertObject:sourceModel atIndex:destinationIndexPath.row];
-    [_tableView reloadData];
 }
 
 

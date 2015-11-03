@@ -36,7 +36,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="zOB-wZ-Cxg">
                             <connections>
-                                <action selector="searchBarItemClick:" destination="vXZ-lx-hvc" id="f6q-Yd-w5f"/>
+                                <action selector="searchBarBtnItemClick:" destination="vXZ-lx-hvc" id="1Zf-ZG-pll"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -88,18 +88,18 @@
             </objects>
             <point key="canvasLocation" x="856.5" y="2369.5"/>
         </scene>
-        <!--Settings Table View Controller-->
+        <!--Table View Controller-->
         <scene sceneID="z0a-0g-DqC">
             <objects>
-                <tableViewController id="Yfg-2f-g79" customClass="QYSettingsTableViewController" sceneMemberID="viewController">
+                <tableViewController id="Yfg-2f-g79" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Pn9-Ks-yl4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection id="D04-2n-nge">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="zap-LS-S83" imageView="cH6-w0-ECI" style="IBUITableViewCellStyleDefault" id="D9p-CQ-hbG">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="zap-LS-S83" imageView="cH6-w0-ECI" style="IBUITableViewCellStyleDefault" id="D9p-CQ-hbG">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D9p-CQ-hbG" id="zVI-mL-aqd">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -119,7 +119,7 @@
                                             <segue destination="pkq-mk-Y6F" kind="show" id="TBK-Tb-cUI"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="nTF-lg-95z" imageView="H8I-Zx-Vtz" style="IBUITableViewCellStyleDefault" id="QWh-fU-kcK">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="nTF-lg-95z" imageView="H8I-Zx-Vtz" style="IBUITableViewCellStyleDefault" id="QWh-fU-kcK">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QWh-fU-kcK" id="6Am-rq-cG9">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -136,7 +136,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="RQZ-E9-aER" imageView="UdA-ax-asz" style="IBUITableViewCellStyleDefault" id="ccz-Ug-ule">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="RQZ-E9-aER" imageView="UdA-ax-asz" style="IBUITableViewCellStyleDefault" id="ccz-Ug-ule">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ccz-Ug-ule" id="yK3-OS-3zv">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -153,7 +153,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="P5q-Ak-XbF" imageView="tqo-ep-2RY" style="IBUITableViewCellStyleDefault" id="p6g-E4-Osh">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="P5q-Ak-XbF" imageView="tqo-ep-2RY" style="IBUITableViewCellStyleDefault" id="p6g-E4-Osh">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p6g-E4-Osh" id="AHH-Ve-fc9">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -174,7 +174,7 @@
                             </tableViewSection>
                             <tableViewSection id="nDO-1B-dJu">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="vpT-bs-B59" imageView="9ln-kx-D1v" style="IBUITableViewCellStyleDefault" id="dJz-Rf-ZGQ">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="vpT-bs-B59" imageView="9ln-kx-D1v" style="IBUITableViewCellStyleDefault" id="dJz-Rf-ZGQ">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dJz-Rf-ZGQ" id="bIG-uW-8Jq">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -195,7 +195,7 @@
                             </tableViewSection>
                             <tableViewSection id="4AG-Xa-XC9">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="PIH-Uw-tm0" imageView="Jaq-qy-7Sj" style="IBUITableViewCellStyleDefault" id="Qn5-4U-V0c">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="PIH-Uw-tm0" imageView="Jaq-qy-7Sj" style="IBUITableViewCellStyleDefault" id="Qn5-4U-V0c">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qn5-4U-V0c" id="gCi-Ah-VuQ">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -230,13 +230,13 @@
         <!--Album View Controller-->
         <scene sceneID="qyo-cZ-1oU">
             <objects>
-                <viewController id="pkq-mk-Y6F" customClass="QYAlbumViewController" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="pkq-mk-Y6F" customClass="QYAlbumViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TtE-Tx-odA"/>
                         <viewControllerLayoutGuide type="bottom" id="UuZ-iP-3Cb"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pcC-bo-pfH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.20000000000000001" maximumZoomScale="2" translatesAutoresizingMaskIntoConstraints="NO" id="iTG-Dh-glb">
@@ -249,13 +249,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ZZR-gl-x9f">
-                        <barButtonItem key="leftBarButtonItem" title="返回" id="DXN-lb-WaR">
-                            <connections>
-                                <action selector="backBarBtnItemClick:" destination="pkq-mk-Y6F" id="3uf-Qg-FMb"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="ZZR-gl-x9f"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="scrollView" destination="iTG-Dh-glb" id="sOS-C9-uHk"/>
@@ -329,7 +323,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="RCN-37-00t" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="我" image="tabbar_me.png" id="cX3-mR-hks"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Iuj-n4-2mY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Iuj-n4-2mY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

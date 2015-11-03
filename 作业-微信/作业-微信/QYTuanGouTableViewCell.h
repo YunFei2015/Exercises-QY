@@ -11,4 +11,6 @@
 
 @interface QYTuanGouTableViewCell : UITableViewCell
 @property (strong, nonatomic) UILabel *buycountLabel;
+@property (strong, nonatomic) UILabel *detailLabel;
+@property (strong, nonatomic) UILabel *titleLabel;
 @end

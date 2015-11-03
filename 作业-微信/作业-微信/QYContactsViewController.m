@@ -12,10 +12,14 @@
 #import "QYContactsTableViewCell.h"
 #import "QYContactsSectionHeaderView.h"
 
-@interface QYContactsViewController () <UITableViewDataSource,UITableViewDelegate>
+@interface QYContactsViewController () <UITableViewDataSource,UITableViewDelegate,UISearchResultsUpdating,UISearchControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *groups;
 
+@property (strong, nonatomic) UISearchController *searchController;
+@property (strong, nonatomic) NSArray *results;
+@property (strong, nonatomic) NSMutableArray *names;
+@property (nonatomic) BOOL isSearching;
 
 @end
 
@@ -38,36 +42,74 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    _searchController.dimsBackgroundDuringPresentation = YES;
+    _searchController.searchResultsUpdater = self;
+    
+    _searchController.searchBar.frame = CGRectMake(0, 0, 375, 44);
+    _tableView.tableHeaderView = _searchController.searchBar;
+    _searchController.hidesNavigationBarDuringPresentation = YES;
+    
+    _results = self.groups;
+    
+    //添加下拉刷新控件
+    UIRefreshControl *refreshControll = [[UIRefreshControl alloc] init];
+    [_tableView addSubview:refreshControll];
+    [refreshControll addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+}
+
+-(void)refresh:(UIRefreshControl *)fresh{
+    [fresh performSelector:@selector(endRefreshing) withObject:nil afterDelay:5];
+}
+
+-(void)updateSearchResultsForSearchController:(UISearchController *)searchController{
+    if ([_searchController.searchBar.text isEqualToString:@""]) {
+        _results = self.groups;
+        _isSearching = NO;
+        
+        [_tableView reloadData];
+        return;
+    }
+    
+    NSMutableArray *friends = [NSMutableArray array];
+    for (QYGroupModel *group in self.groups) {
+        [friends addObjectsFromArray:group.friends];
+    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name CONTAINS[CD] %@",_searchController.searchBar.text];
+    _results = [friends filteredArrayUsingPredicate:predicate];
+    _isSearching = YES;
+    
+    [_tableView reloadData];
+    
+}
+
+-(void)willDismissSearchController:(UISearchController *)searchController{
+    _isSearching = NO;
 }
 
 #pragma mark - 设置tableView视图
 //组数
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if (_isSearching) {
+        return 1;
+    }
     return self.groups.count;
 }
 
 //组头的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (_isSearching) {
+        return 0;
+    }
     return 44;
 }
 
 //组头视图
-//- (UITableViewHeaderFooterView *)headerViewForSection:(NSInteger)section{
-//    NSString *identifier = @"headerView";
-//    QYContactsSectionHeaderView *headerView = [_tableView dequeueReusableHeaderFooterViewWithIdentifier:identifier];
-//    if (headerView == nil) {
-//        headerView = [[QYContactsSectionHeaderView alloc] initWithReuseIdentifier:identifier];
-//    }
-//    
-//    QYGroupModel *group = self.groups[section];
-//    [headerView.headerBtn setTitle:group.name forState:UIControlStateNormal];
-//    headerView.onlineNumLabel.text = [NSString stringWithFormat:@"%ld/%ld",group.online,group.friends.count];
-//    
-//    return headerView;
-//}
-
-//组头视图
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (_isSearching) {
+        return nil;
+    }
     NSString *identifier = @"headerView";
     [_tableView registerClass:[QYContactsSectionHeaderView class] forHeaderFooterViewReuseIdentifier:identifier];
     QYContactsSectionHeaderView *headerView = [_tableView dequeueReusableHeaderFooterViewWithIdentifier:identifier];
@@ -94,6 +136,10 @@
 
 //每组行数
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (_isSearching) {
+        return _results.count;
+    }
+    
     QYGroupModel *group = self.groups[section];
     if (!group.isOpen) {
         return 0;
@@ -107,6 +153,17 @@
     QYContactsTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (cell == nil) {
         cell = [[QYContactsTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+    }
+    
+    
+    if (_isSearching) {
+        cell.friend = _results[indexPath.row];
+        
+        if (cell.isVip) {
+            cell.textLabel.textColor = [UIColor redColor];
+        }else cell.textLabel.textColor = [UIColor blackColor];
+        
+        return cell;
     }
     
     QYGroupModel *group = self.groups[indexPath.section];
@@ -124,10 +181,10 @@
 - (IBAction)addFriend:(UIBarButtonItem *)sender {
     if (_tableView.editing) {
         _tableView.editing = NO;
-        [sender setTitle:@"完成"];
+        [sender setTitle:@"编辑"];
     }else{
         _tableView.editing = YES;
-        [sender setTitle:@"添加"];
+        [sender setTitle:@"完成"];
     }
 }
 
@@ -139,29 +196,38 @@
 
 //指定编辑样式，添加
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return UITableViewCellEditingStyleInsert;
+    return UITableViewCellEditingStyleDelete;
 }
 
 //提交编辑样式
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    QYContactsTableViewCell *addCell = [[QYContactsTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
-    QYGroupModel *group = self.groups[indexPath.section];
-    addCell.friend = group.friends[indexPath.row];
-    
-    if (addCell.isVip) {
-        addCell.textLabel.textColor = [UIColor redColor];
-    }else{
-        addCell.textLabel.textColor = [UIColor blackColor];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        QYGroupModel *group = self.groups[indexPath.section];
+        [group.friends removeObjectAtIndex:indexPath.row];
+        
+        [_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+    }else if (editingStyle == UITableViewCellEditingStyleInsert){
+        QYContactsTableViewCell *addCell = [[QYContactsTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+        QYGroupModel *group = self.groups[indexPath.section];
+        addCell.friend = group.friends[indexPath.row];
+        addCell.textLabel.text = @"新朋友";
+        
+        if (addCell.isVip) {
+            addCell.textLabel.textColor = [UIColor redColor];
+        }else{
+            addCell.textLabel.textColor = [UIColor blackColor];
+        }
+        
+        //更改数据源
+        //    NSArray *friends = [NSArray arrayWithObjects:addCell.friend, nil];
+        //    NSArray *indexes = [NSArray arrayWithObjects:indexPath.row, nil];
+        [group.friends insertObject:addCell.friend atIndex:indexPath.row + 1];
+        
+        //更改界面
+        NSArray *indexPaths = [NSArray arrayWithObjects:indexPath, nil];
+        [_tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+        
     }
-    
-    //更改数据源
-//    NSArray *friends = [NSArray arrayWithObjects:addCell.friend, nil];
-//    NSArray *indexes = [NSArray arrayWithObjects:indexPath.row, nil];
-    [group.friends insertObject:addCell.friend atIndex:indexPath.row + 1];
-    
-    //更改界面
-    NSArray *indexPaths = [NSArray arrayWithObjects:indexPath, nil];
-    [_tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
     
 }
 

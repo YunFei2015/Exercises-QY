@@ -88,7 +88,7 @@
 		CCF16F9A1BE23D60001A7C6F /* QYGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF16F991BE23D60001A7C6F /* QYGroupModel.m */; };
 		CCF16F9D1BE2401D001A7C6F /* QYContactsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF16F9C1BE2401D001A7C6F /* QYContactsTableViewCell.m */; };
 		CCF16FA01BE2478C001A7C6F /* QYContactsSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF16F9F1BE2478C001A7C6F /* QYContactsSectionHeaderView.m */; };
-		CCF38CB61BE7617C00270C47 /* QYSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF38CB51BE7617C00270C47 /* QYSettingsTableViewController.m */; };
+		CCF38CB91BE787B400270C47 /* QYTGSearchResultTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF38CB81BE787B400270C47 /* QYTGSearchResultTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,8 +200,8 @@
 		CCF16F9C1BE2401D001A7C6F /* QYContactsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYContactsTableViewCell.m; sourceTree = "<group>"; };
 		CCF16F9E1BE2478C001A7C6F /* QYContactsSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYContactsSectionHeaderView.h; sourceTree = "<group>"; };
 		CCF16F9F1BE2478C001A7C6F /* QYContactsSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYContactsSectionHeaderView.m; sourceTree = "<group>"; };
-		CCF38CB41BE7617C00270C47 /* QYSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYSettingsTableViewController.h; sourceTree = "<group>"; };
-		CCF38CB51BE7617C00270C47 /* QYSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYSettingsTableViewController.m; sourceTree = "<group>"; };
+		CCF38CB71BE787B400270C47 /* QYTGSearchResultTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYTGSearchResultTableViewController.h; sourceTree = "<group>"; };
+		CCF38CB81BE787B400270C47 /* QYTGSearchResultTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYTGSearchResultTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,10 +256,10 @@
 			children = (
 				CCE79A0D1BE0CD7400FDD083 /* QYTuanGouViewController.h */,
 				CCE79A0E1BE0CD7400FDD083 /* QYTuanGouViewController.m */,
+				CCF38CB71BE787B400270C47 /* QYTGSearchResultTableViewController.h */,
+				CCF38CB81BE787B400270C47 /* QYTGSearchResultTableViewController.m */,
 				CCF16F921BE23BEE001A7C6F /* QYContactsViewController.h */,
 				CCF16F931BE23BEE001A7C6F /* QYContactsViewController.m */,
-				CCF38CB41BE7617C00270C47 /* QYSettingsTableViewController.h */,
-				CCF38CB51BE7617C00270C47 /* QYSettingsTableViewController.m */,
 				CCEC271F1BE64D01008051D4 /* QYAlbumViewController.h */,
 				CCEC27201BE64D01008051D4 /* QYAlbumViewController.m */,
 			);
@@ -610,13 +610,13 @@
 				CCF16F9D1BE2401D001A7C6F /* QYContactsTableViewCell.m in Sources */,
 				CCE79A0F1BE0CD7400FDD083 /* QYTuanGouViewController.m in Sources */,
 				CCEAA7E41BE0C959008DCD65 /* ViewController.m in Sources */,
-				CCF38CB61BE7617C00270C47 /* QYSettingsTableViewController.m in Sources */,
 				CCE79A9B1BE0E8E600FDD083 /* QYTuanGouTableViewCell.m in Sources */,
 				CCF16FA01BE2478C001A7C6F /* QYContactsSectionHeaderView.m in Sources */,
 				CCF16F9A1BE23D60001A7C6F /* QYGroupModel.m in Sources */,
 				CCE79AA21BE0F01600FDD083 /* QYScrollView.m in Sources */,
 				CCF16F941BE23BEE001A7C6F /* QYContactsViewController.m in Sources */,
 				CCEAA7E11BE0C959008DCD65 /* AppDelegate.m in Sources */,
+				CCF38CB91BE787B400270C47 /* QYTGSearchResultTableViewController.m in Sources */,
 				CCEAA7DE1BE0C959008DCD65 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
